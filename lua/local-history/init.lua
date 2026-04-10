@@ -28,12 +28,13 @@ local function auto_save(opts)
       -- 只有当缓冲区已加载、有名字、且被修改过时，才自动保存
       if vim.api.nvim_buf_is_loaded(buf) and 
          vim.api.nvim_buf_get_name(buf) ~= "" and
-         vim.api.nvim_bo[buf].modified then
+         vim.bo[buf].modified then
          
         -- 执行静默保存，这会在 undofile 里创建一个时间节点
         -- 使用 nested=true 是为了防止意外触发其他复杂的自动命令
         vim.api.nvim_buf_call(buf, function()
-          vim.cmd("silent! update") 
+          -- 不要触发 Linting 或格式化
+          vim.cmd("noautocmd silent! update")
         end)
       end
     end
