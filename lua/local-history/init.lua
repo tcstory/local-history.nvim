@@ -40,7 +40,7 @@ local function auto_save(opts)
     end
     
     if not opts.silent then
-      print("LocalHistory: 已创建自动时间戳快照")
+      -- print("LocalHistory: 已创建自动时间戳快照")
     end
   end))
 end
@@ -65,12 +65,12 @@ function M.setup(opts)
     if has_snacks then
       snacks.picker.undo()
     else
-      print("未发现 Snacks 插件，请手动安装 snacks.nvim 以获得更好的视觉效果")
+      -- print("未发现 Snacks 插件，请手动安装 snacks.nvim 以获得更好的视觉效果")
     end
   end, {})
 
   if not opts.silent then
-    print("LocalHistory 已就绪，历史保存在: " .. opts.backup_dir)
+    -- print("LocalHistory 已就绪，历史保存在: " .. opts.backup_dir)
   end
 
   -- 每周自动清理一次（假设你觉得 30 天的历史就够了）
