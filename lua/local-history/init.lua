@@ -19,7 +19,7 @@ local function auto_save(opts)
   -- vim.print("LocalHistory: opts", opts)
   -- 2. 创建一个定时器来实现“时间间隔快照”
   local timer = vim.uv.new_timer()
-  
+
   -- 每隔一段时间执行一次
   timer:start(opts.interval, opts.interval, vim.schedule_wrap(function()
     -- 获取当前所有的缓冲区
@@ -27,9 +27,9 @@ local function auto_save(opts)
     for _, buf in ipairs(buffers) do
       -- 只有当缓冲区已加载、有名字、且被修改过时，才自动保存
       if vim.api.nvim_buf_is_loaded(buf) and 
-         vim.api.nvim_buf_get_name(buf) ~= "" and
-         vim.bo[buf].modified then
-         
+        vim.api.nvim_buf_get_name(buf) ~= "" and
+        vim.bo[buf].modified then
+
         -- 执行静默保存，这会在 undofile 里创建一个时间节点
         -- 使用 nested=true 是为了防止意外触发其他复杂的自动命令
         vim.api.nvim_buf_call(buf, function()
@@ -38,7 +38,7 @@ local function auto_save(opts)
         end)
       end
     end
-    
+
     if not opts.silent then
       -- print("LocalHistory: 已创建自动时间戳快照")
     end
@@ -65,7 +65,7 @@ function M.setup(opts)
     if has_snacks then
       snacks.picker.undo()
     else
-      -- print("未发现 Snacks 插件，请手动安装 snacks.nvim 以获得更好的视觉效果")
+      print("未发现 Snacks 插件，请手动安装 snacks.nvim 以获得更好的视觉效果")
     end
   end, {})
 
